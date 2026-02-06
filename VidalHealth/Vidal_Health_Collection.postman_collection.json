@@ -1,0 +1,85 @@
+{
+    "info": {
+        "_postman_id": "b3e04029-79a4-4361-91d3-4f9b2ea1b5ed",
+        "name": "Vidal Health Assessment",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. Generate Webhook",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = pm.response.json();",
+                            "pm.environment.set(\"accessToken\", jsonData.accessToken);",
+                            "pm.environment.set(\"webhookUrl\", jsonData.webhook);",
+                            "console.log(\"Access Token set: \" + jsonData.accessToken);",
+                            "console.log(\"Webhook URL set: \" + jsonData.webhook);"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"John Doe\",\n    \"regNo\": \"REG12347\",\n    \"email\": \"john@example.com\"\n}"
+                },
+                "url": {
+                    "raw": "https://bfhldevapigw.healthrx.co.in/hiring/generateWebhook/JAVA",
+                    "protocol": "https",
+                    "host": [
+                        "bfhldevapigw",
+                        "healthrx",
+                        "co",
+                        "in"
+                    ],
+                    "path": [
+                        "hiring",
+                        "generateWebhook",
+                        "JAVA"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "2. Submit Solution",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "{{accessToken}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"finalQuery\": \"SELECT * FROM dummy_table\"\n}"
+                },
+                "url": {
+                    "raw": "{{webhookUrl}}",
+                    "host": [
+                        "{{webhookUrl}}"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}
