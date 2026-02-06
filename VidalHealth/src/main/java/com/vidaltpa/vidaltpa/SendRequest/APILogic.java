@@ -18,7 +18,8 @@ public class APILogic {
 
     public void runTask() {
 
-        Map<String, String> requestBody = Map.of("name", "John Doe", "regNo", "REG12347", "email", "john@example.com");
+        Map<String, String> requestBody = Map.of("name", "Animesh Tyagi", "regNo", "250850120027", "email",
+                "Animeshtyagi2@gmail.com");
 
         ResponseEntity<Map> response = restTemplate.postForEntity(GENERATE_URL, requestBody, Map.class);
 
